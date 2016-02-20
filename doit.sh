@@ -1,13 +1,5 @@
 #!/usr/bin/env bash
 
-if [ "$(uname)" == "Darwin" ]; then
-  # Do something under Mac OS X
-  echo "Yep, we're on a mac"
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-  # Do something under Linux
-  echo "Ok, Linux..."
-fi
-
 # Determine OS platform
 UNAME=$(uname | tr "[:upper:]" "[:lower:]")
 # If Linux, try to determine specific distribution
@@ -24,3 +16,11 @@ fi
 [ "$DISTRO" == "" ] && export DISTRO=$UNAME
 echo $DISTRO
 unset UNAME
+
+if [ "$DISTRO" == "darwin" ]; then
+  # Do something under Mac OS X
+  echo "Yep, OSX..."
+elif [ "$DISTRO" == "ubuntu" ]; then
+  # Do something under Linux
+  echo "Ok, Ubuntu..."
+fi
