@@ -1,0 +1,13 @@
+{
+  "editor.fontSize": 10,
+  "editor.fontFamily": "Operator Mono SSm Lig",
+  "editor.fontLigatures": true,
+  "workbench.colorTheme": "Operator Mono Dark Theme",
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.formatOnPaste": true,
+  "editor.tabSize": 2,
+  "window.zoomLevel": 0,
+  "editor.fontWeight": "500",
+  "editor.renderWhitespace": "boundary",
+  "trailing-spaces.trimOnSave": true
+}
