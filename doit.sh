@@ -44,6 +44,7 @@ if [ "$DISTRO" == "darwin" ]; then
   read -n 1 -s -r -p "Press any key to continue..."
 
   # Start the services
+  # TODO: There's a race condition, here. We attempt to start the services before installation has completed.
   brew services start mariadb
   brew services start memcached
   brew services start postgresql
