@@ -81,12 +81,13 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh | $SHEL
 # Install Node LTS, Update NPM, Install Basics
 nvm install --lts
 npm update npm -g
-npm install avn-nvm grunt grunt-cli gulp
+npm i avn-nvm grunt grunt-cli gulp nodemon
 
 # Install project node versions, etc etc
 nvm install 10.15.3
 nvm use 10.15.3
 npm update npm -g
-npm install avn-nvm grunt grunt-cli gulp
+npm i -g avn-nvm grunt grunt-cli gulp nodemon
+
 
 nvm use --lts
