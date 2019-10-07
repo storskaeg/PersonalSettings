@@ -35,9 +35,13 @@ if [ "$DISTRO" == "darwin" ]; then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
   # The basics: basic tooling, standard datastores and caching, and helpers
-  brew install curl dep git go heroku kubernetes-cli mariadb memcached postgresql rbenv redis ruby-build sqlite srcclr vim wget
+  brew tap AdoptOpenJDK/openjdk
+  brew update
+  brew install curl dep git go heroku jfrog-cli-go kubernetes-cli mariadb memcached postgresql rbenv redis ruby-build sqlite srcclr vim wget
   brew cask install adoptopenjdk8
   brew cask install insomnia
+
+  read -n 1 -s -r -p "Press any key to continue..."
 
   # Start the services
   brew services start mariadb
@@ -48,7 +52,6 @@ if [ "$DISTRO" == "darwin" ]; then
 
   # ZSH -- separated from the earlier installs so it can be commented out in needed
   brew install zsh
-
 elif [ "$DISTRO" == "ubuntu" ]; then
   # Do something under Linux
   echo "Ok, Ubuntu..."
