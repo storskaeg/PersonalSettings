@@ -25,6 +25,8 @@ unset UNAME
 if [ "$DISTRO" == "darwin" ]; then
   # Do something under Mac OS X
   echo "Yep, OSX..."
+  echo "This script will run for a bit, but occasionally require your input."
+  read -n 1 -s -r -p "Press any key to continue..."
 
   # Dev Tools
   $SUDO xcode-select --install
@@ -41,6 +43,8 @@ if [ "$DISTRO" == "darwin" ]; then
   brew cask install adoptopenjdk8
   brew cask install insomnia
 
+  # Attempting to mitigate race condition by sleeping 3 minutes while homebrew completes, then waiting for the user to provide input
+  sleep 180
   read -n 1 -s -r -p "Press any key to continue..."
 
   # Start the services
