@@ -37,10 +37,10 @@ if [ "$DISTRO" == "darwin" ]; then
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
   # The basics: basic tooling, standard datastores and caching, and helpers
-  brew tap AdoptOpenJDK/openjdk
   brew update
   brew install curl dep git go heroku jfrog-cli-go kubernetes-cli mariadb memcached postgresql rbenv redis ruby-build sqlite srcclr vim wget
-  brew cask install adoptopenjdk8
+  brew tap heroku/brew && brew install heroku
+  brew tap AdoptOpenJDK/openjdk && brew cask install adoptopenjdk8
   brew cask install insomnia
 
   # Attempting to mitigate race condition by sleeping 3 minutes while homebrew completes, then waiting for the user to provide input
