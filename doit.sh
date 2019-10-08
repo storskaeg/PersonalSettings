@@ -1,11 +1,20 @@
 #!/usr/bin/env bash
 
+function pause() {
+  read -n 1 -s -r -p "Press any key to continue..."
+}
+
+function sleep_3min() {
+  sleep 180
+}
+
 SUDO=''
 if (( $EUID != 0 )); then
   SUDO='sudo'
 fi
 
 # Determine OS platform
+echo "Determining OS..."
 UNAME=$(uname | tr "[:upper:]" "[:lower:]")
 # If Linux, try to determine specific distribution
 if [ "$UNAME" == "linux" ]; then
@@ -24,19 +33,23 @@ unset UNAME
 
 if [ "$DISTRO" == "darwin" ]; then
   # Do something under Mac OS X
-  echo "Yep, OSX..."
+  echo "Identified MacOS"
   echo "This script will run for a bit, but occasionally require your input."
-  read -n 1 -s -r -p "Press any key to continue..."
+  pause
 
   # Dev Tools
+  echo "Installing and activating devtools..."
   $SUDO xcode-select --install
   # xcode-select -s /Applications/Xcode.app/Contents/Developer
   $SUDO xcodebuild -license accept
 
   # Homebrew
+  echo "Installing Homebrew..."
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
   # The basics: basic tooling, standard datastores and caching, and helpers
+  echo "Installing the basics from Homebrew..."
+  echo "We'll wait for a few and pause after this."
   brew update
   brew install curl dep git go heroku jfrog-cli-go kubernetes-cli mariadb memcached postgresql rbenv redis ruby-build sqlite srcclr vim wget
   brew tap heroku/brew && brew install heroku
@@ -44,11 +57,12 @@ if [ "$DISTRO" == "darwin" ]; then
   brew cask install insomnia
 
   # Attempting to mitigate race condition by sleeping 3 minutes while homebrew completes, then waiting for the user to provide input
-  sleep 180
-  read -n 1 -s -r -p "Press any key to continue..."
+  sleep_3min
+  pause
 
   # Start the services
   # TODO: There's a race condition, here. We attempt to start the services before installation has completed.
+  echo "Activating services..."
   brew services start mariadb
   brew services start memcached
   brew services start postgresql
@@ -56,6 +70,7 @@ if [ "$DISTRO" == "darwin" ]; then
   brew services start sqlite
 
   # ZSH -- separated from the earlier installs so it can be commented out in needed
+  echo "Installing zsh..."
   brew install zsh
 elif [ "$DISTRO" == "ubuntu" ]; then
   # Do something under Linux
@@ -64,29 +79,47 @@ elif [ "$DISTRO" == "ubuntu" ]; then
   $SUDO apt install build-essential automake cmake curl git heroky kubernetes-cli mariadb memcached postgresql rbenv redis ruby-build sqlite srcclr vim wget
 fi
 
+sleep_3min
+
+echo "Creating ~/.nvmrc"
 echo "10.16.3" > ~/.nvmrc
+echo "Creating ~/.ruby_version"
 echo "2.6.3" > ~/.ruby_version
 
 # Fantastic Vimrc
 git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
 sh ~/.vim_runtime/install_awesome_vimrc.sh
 
+sleep_3min
+
 # Oh My ZSH -- Lots of sugar here, iff we have zsh installed
-[[ -f `which zsh` ]] && sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-[[ -f `which zsh` ]] && cp ./zsh/.zshrc $HOME
+
+[[ -f `which zsh` ]] && echo "Installing Oh My ZSH!" && sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+sleep_3min
+pause
+
+echo "Copying and activating pre-built .zshrc..."
+[[ -f `which zsh` && -f "./zsh/.zshrc" ]] && cp ./zsh/.zshrc $HOME
+[[ -f `which zsh` && -f "$HOME/.zshrc" ]] && . $HOME/.zshrc
 
 # nvm -- Node Version Management
+echo "Installing NVM..."
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh | $SHELL
 
 # Install Node LTS, Update NPM, Install Basics
+echo "Installing Node LTS..."
 nvm install --lts
 npm update npm -g
+echo "Installing the global basics..."
 npm i avn-nvm grunt grunt-cli gulp nodemon
 
 # Install project node versions, etc etc
+echo "Installing Node 10.15.3 for Nomad..."
 nvm install 10.15.3
 nvm use 10.15.3
 npm update npm -g
+echo "Installing the global basics..."
 npm i -g avn-nvm grunt grunt-cli gulp nodemon
 
 
