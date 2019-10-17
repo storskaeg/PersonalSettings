@@ -51,7 +51,7 @@ if [ "$DISTRO" == "darwin" ]; then
   echo "Installing the basics from Homebrew..."
   echo "We'll wait for a few and pause after this."
   brew update
-  brew install curl dep git go heroku jfrog-cli-go kubernetes-cli mariadb memcached postgresql rbenv redis ruby-build sqlite srcclr vim wget
+  brew install curl dep git git-delta go heroku jfrog-cli-go kubernetes-cli mariadb memcached postgresql rbenv redis ruby-build sqlite srcclr tmux vim wget
   brew tap heroku/brew && brew install heroku
   brew tap AdoptOpenJDK/openjdk && brew cask install adoptopenjdk8
   brew cask install insomnia
@@ -85,6 +85,11 @@ echo "Creating ~/.nvmrc"
 echo "10.16.3" > ~/.nvmrc
 echo "Creating ~/.ruby_version"
 echo "2.6.3" > ~/.ruby_version
+echo "Configuring tmux color options"
+echo "set -ga terminal-overrides \",xterm-256color:Tc\"" >> ~/.tmux.conf
+
+# Configure custom git delta
+git config --global core.pager "delta --dark"
 
 # Fantastic Vimrc
 git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
