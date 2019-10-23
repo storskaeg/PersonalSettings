@@ -72,6 +72,14 @@ if [ "$DISTRO" == "darwin" ]; then
   # ZSH -- separated from the earlier installs so it can be commented out in needed
   echo "Installing zsh..."
   brew install zsh
+  
+  # MacOS  Bluetooth Audio Fixes
+  defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Max (editable)" 80
+  defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" 48
+  defaults write com.apple.BluetoothAudioAgent "Apple Initial Bitpool (editable)" 40
+  defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool" 58
+  defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool Max" 58
+  defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool Min" 48
 elif [ "$DISTRO" == "ubuntu" ]; then
   # Do something under Linux
   echo "Ok, Ubuntu..."
