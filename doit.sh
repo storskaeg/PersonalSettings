@@ -75,12 +75,16 @@ if [ "$DISTRO" == "darwin" ]; then
   
   # MacOS  Bluetooth Audio Fixes
   # Credits: https://apple.stackexchange.com/questions/167245/yosemite-bluetooth-audio-is-choppy-skips
-  defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Max (editable)" 80
-  defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" 48
-  defaults write com.apple.BluetoothAudioAgent "Apple Initial Bitpool (editable)" 40
-  defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool" 58
-  defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool Max" 58
-  defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool Min" 48
+  defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Max (editable)" 80 
+  defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" 80 
+  defaults write com.apple.BluetoothAudioAgent "Apple Initial Bitpool (editable)" 80 
+  defaults write com.apple.BluetoothAudioAgent "Apple Initial Bitpool Min (editable)" 80 
+  defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool" 80 
+  defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool Max" 80 
+  defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool Min" 80
+  
+  # Restart the Bluetooth services
+  $SUDO killall coreaudiod
 elif [ "$DISTRO" == "ubuntu" ]; then
   # Do something under Linux
   echo "Ok, Ubuntu..."
