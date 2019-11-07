@@ -73,15 +73,17 @@ if [ "$DISTRO" == "darwin" ]; then
   echo "Installing zsh..."
   brew install zsh
   
-  # MacOS  Bluetooth Audio Fixes
+  # MacOS  Bluetooth Audio Fixes and Codec Selection
   # Credits: https://apple.stackexchange.com/questions/167245/yosemite-bluetooth-audio-is-choppy-skips
-  defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Max (editable)" 80 
-  defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" 80 
-  defaults write com.apple.BluetoothAudioAgent "Apple Initial Bitpool (editable)" 80 
-  defaults write com.apple.BluetoothAudioAgent "Apple Initial Bitpool Min (editable)" 80 
-  defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool" 80 
-  defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool Max" 80 
-  defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool Min" 80
+  $SUDO defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Max (editable)" 80 
+  $SUDO defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" 80 
+  $SUDO defaults write com.apple.BluetoothAudioAgent "Apple Initial Bitpool (editable)" 80 
+  $SUDO defaults write com.apple.BluetoothAudioAgent "Apple Initial Bitpool Min (editable)" 80 
+  $SUDO defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool" 80 
+  $SUDO defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool Max" 80 
+  $SUDO defaults write com.apple.BluetoothAudioAgent "Negotiated Bitpool Min" 80
+  $SUDO defaults write bluetoothaudiod "Enable AAC codec" -bool true
+  $SUDO defaults write bluetoothaudiod "Enable AptX codec" -bool true
   
   # Restart the Bluetooth services
   $SUDO killall coreaudiod
