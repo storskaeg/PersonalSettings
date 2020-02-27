@@ -136,3 +136,6 @@ go get -u github.com/zendesk/z3nnew/...
 git clone https://github.com/zendesk/northwoods_logo.git ~/.northwoods_logo
 cd ~/.northwoods_logo && make && make install && cd ~
 echo "northwoods_logo\n" >> ~/.zshrc
+
+. ~/.zshrc
+

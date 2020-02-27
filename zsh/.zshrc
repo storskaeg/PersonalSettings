@@ -140,3 +140,8 @@ alias git-clean=$'git remote prune origin && (git branch -vv | grep \'\[origin.*
 
 alias clear-cache-memcached="echo 'flush_all' | nc localhost 11211"
 alias recode="pbpaste | decode64 | pbcopy"
+
+# Set up google cloud sdk bit
+source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
+source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+
