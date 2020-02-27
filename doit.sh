@@ -55,6 +55,7 @@ if [ "$DISTRO" == "darwin" ]; then
   brew tap heroku/brew && brew install heroku
   brew tap AdoptOpenJDK/openjdk && brew cask install adoptopenjdk8
   brew cask install insomnia
+  brew cask install google-cloud-sdk
 
   # Attempting to mitigate race condition by sleeping 3 minutes while homebrew completes, then waiting for the user to provide input
   sleep_3min
